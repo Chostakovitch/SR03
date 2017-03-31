@@ -1,10 +1,10 @@
-Etudiants (nom, prÈnom, #mail, branche) 
+ÔªøEtudiants (nom, pr√©nom, #mail, branche) 
 branche -> enum 
 EDT (nomUV, type, jour, horaire)
 jour -> enum (Lundi-samedi)
 Inscription( mail -> Etudiants, edt -> EDT)
 
 Pas d'inscription consultation en lecture
-remplissage de la BDD gr‚ce ‡ un webservice ‡ partir de la BDD de l'UTC
--> Quels champs rÈcupÈrer ?
+remplissage de la BDD gr√¢ce √† un webservice √† partir de la BDD de l'UTC
+-> Quels champs r√©cup√©rer ?
 
