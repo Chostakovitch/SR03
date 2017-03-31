@@ -1,0 +1,10 @@
+Etudiants (nom, prénom, #mail, branche) 
+branche -> enum 
+EDT (nomUV, type, jour, horaire)
+jour -> enum (Lundi-samedi)
+Inscription( mail -> Etudiants, edt -> EDT)
+
+Pas d'inscription consultation en lecture
+remplissage de la BDD grâce à un webservice à partir de la BDD de l'UTC
+-> Quels champs récupérer ?
+
