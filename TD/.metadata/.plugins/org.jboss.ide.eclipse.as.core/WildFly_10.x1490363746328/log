@@ -11,3 +11,45 @@
 
 !ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2017-03-24 14:57:09.196
 !MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.wtp.core 1 16973825 2017-03-24 15:26:14.429
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 4 0 2017-03-24 15:26:21.457
+!MESSAGE The server "WildFly 10.x" requires a JDK to run properly. The VM used to launch this server is not recognized as a valid JDK. C:\Program Files\Java\jre1.8.0_121 
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2017-03-24 15:26:22.510
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2017-03-24 15:26:26.632
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842776 2017-03-24 15:43:46.601
+!MESSAGE Server shutting down
+
+!ENTRY org.jboss.ide.eclipse.as.wtp.core 1 16973825 2017-03-24 15:43:46.863
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 4 0 2017-03-24 15:43:46.886
+!MESSAGE The server "WildFly 10.x" requires a JDK to run properly. The VM used to launch this server is not recognized as a valid JDK. C:\Program Files\Java\jre1.8.0_121 
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2017-03-24 15:43:47.910
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2017-03-24 15:43:52.017
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842776 2017-03-24 15:45:01.453
+!MESSAGE Server shutting down
+
+!ENTRY org.jboss.ide.eclipse.as.wtp.core 1 16973825 2017-03-24 15:45:01.710
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 4 0 2017-03-24 15:45:01.728
+!MESSAGE The server "WildFly 10.x" requires a JDK to run properly. The VM used to launch this server is not recognized as a valid JDK. C:\Program Files\Java\jre1.8.0_121 
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2017-03-24 15:45:02.769
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2017-03-24 15:45:07.037
+!MESSAGE Server Startup Succeeded
