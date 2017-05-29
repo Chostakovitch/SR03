@@ -1,0 +1,22 @@
+drop schema if exists SR03Projet;
+create schema SR03Projet;
+use SR03Projet;
+create table branche (abreviation varchar(50) not null, nom varchar(50), primary key (abreviation));
+create table edt (heure_debut varchar(50) not null, jour varchar(50) not null, salle varchar(50) not null, duree integer not null, type varchar(50), uv varchar(50), primary key (heure_debut, jour, salle));
+create table etudiant (mail varchar(50) not null, nom varchar(50), prenom varchar(50), branche varchar(50), primary key (mail));
+create table inscription (mail varchar(50) not null, heure_debut varchar(50) not null, jour varchar(50) not null, salle varchar(50) not null);
+create table jour (nom varchar(50) not null, primary key (nom));
+create table salle (nom varchar(50) not null, primary key (nom));
+create table uv (nom varchar(50) not null, description varchar(50), primary key (nom));
+alter table edt add constraint FKhgvkdqcr65ijy50uavitpibn9 foreign key (jour) references jour (nom);
+alter table edt add constraint FK9siat9vv9gjlunsrwd4wcc73h foreign key (salle) references salle (nom);
+alter table edt add constraint FK2976ef9ow5g5ttxwa08qgo6v0 foreign key (uv) references uv (nom);
+alter table etudiant add constraint FKpitbe9bvy3ijxqi3vi6ltjs1e foreign key (branche) references branche (abreviation);
+alter table inscription add constraint FKo74epmx5attuowjqycn37ahqa foreign key (heure_debut, jour, salle) references edt (heure_debut, jour, salle);
+alter table inscription add constraint FKg7jrpmuhksknj4loc94lej0fi foreign key (mail) references etudiant (mail);
+INSERT into branche
+VALUES('GI', 'Génie Informatique'),('GM', 'Génie Mécanique'),('GB', 'Génie Biologique'),('GSU', 'Génie des Systèmes Urbains'),('TC', 'Tronc Commun'),('GP','Génie des Procédés');
+INSERT INTO jour VALUES ("LUNDI"), ("MARDI"), ("MERCREDI"), ("JEUDI"), ("VENDREDI"), ("SAMEDI");
+create table compte (pseudo varchar(50) not null, password varchar(500) not null, primary key(pseudo));
+insert into compte values ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997');
+commit;
