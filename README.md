@@ -41,7 +41,7 @@ L'endpoint pour la consultation des emplois du temps est `/edt`. Sans paramètre
 
 ## Mise en place et configuration du serveur
 
-> Note : Java 8 au minimum est requis.
+> Note : Java 8 au minimum est requis, ainsi qu'Eclipse Neon JEE au minimum (et pas la version classique d'Eclipse)
 
 ### Base de données
 
