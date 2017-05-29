@@ -19,4 +19,6 @@ VALUES('GI', 'Génie Informatique'),('GM', 'Génie Mécanique'),('GB', 'Génie B
 INSERT INTO etudiant VALUES
 ('quentin.duchemin@etu.utc.fr', 'Duchemin', 'Quentin', 'GI');
 INSERT INTO jour VALUES ("LUNDI"), ("MARDI"), ("MECREDI"), ("JEUDI"), ("VENDREDI"), ("SAMEDI")
+create table compte (pseudo varchar(50) not null, password varchar(500) not null, primary key(pseudo));
+insert into compte values ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997')
 commit;
