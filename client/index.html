@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Trombinoscope</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-static-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+					<div class="navbar-brand cursor-default">Trombinoscope</div>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li><a href="#">Liste des étudiants</a></li>
+						<li><a href="#">Infos d'un étudiant</a></li>
+						<li><a href="#">Recherche d'étudiants</a></li>
+					</ul>
+					<div class="nav navbar-right">
+						<p class="navbar-text cursor-default">Bienvenue, X !</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="vertical-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<a href="#" class="btn btn-info btn-block"><span class="glyphicon glyphicon-th-list"></span> Liste des étudiants</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<a href="#" class="btn btn-info btn-block"><span class="glyphicon glyphicon-user"></span> Consulter un emploi du temps</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group" id="adv-search">
+							<input type="text" id="search-input" class="form-control input-lg" placeholder="Rechercher des étudiants" />
+							<div class="input-group-btn">
+								<div class="btn-group" role="group">
+									<div class="dropdown dropdown-lg">
+										<button type="button" class="btn btn-lg btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+										<div class="dropdown-menu dropdown-menu-right" id="menu-search" role="menu">
+											<form class="form-horizontal" role="form">
+												<div class="form-group">
+													<label for="filter">Branche</label>
+													<select class="input-lg form-control">
+														<option value="0" selected>Toutes</option>
+														<option value="1">GI</option>
+														<option value="2">GM</option>
+														<option value="3">GP</option>
+														<option value="4">GB</option>
+													</select>
+												</div>
+												<div class="form-group">
+													<label for="contain">Nom</label>
+													<input class="input-lg form-control" type="text" />
+												</div>
+												<div class="form-group">
+													<label for="contain">Prénom</label>
+													<input class="input-lg form-control" type="text" />
+												</div>
+											</form>
+										</div>
+									</div>
+									<button type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+			<script type="text/javascript" src="js/bootstrap.min.js"></script>
+			<script type="text/javascript" src="js/index.js"></script>
+		</body>
+	</html>
