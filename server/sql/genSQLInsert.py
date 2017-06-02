@@ -25,13 +25,13 @@ for k, v in logins.items():
 	with urllib.request.urlopen(baseEDT + k) as url:
 		data = json.loads(url.read().decode())
 		for insc in data:
-			sqlQuery += "INSERT INTO uv (nom) VALUES (\"" + insc["uv"] + "\") ON DUPLICATE KEY UPDATE nom=nom;\n"
-			sqlQuery += "INSERT INTO salle (nom) VALUES (\"" + insc["room"] + "\") ON DUPLICATE KEY UPDATE nom=nom;\n"	
+			sqlQuery += "INSERT INTO Uv (nom) VALUES (\"" + insc["uv"] + "\") ON DUPLICATE KEY UPDATE nom=nom;\n"
+			sqlQuery += "INSERT INTO Salle (nom) VALUES (\"" + insc["room"] + "\") ON DUPLICATE KEY UPDATE nom=nom;\n"	
 			beginHour = insc["begin"]
 			endHour = insc["end"]
 			begin = datetime.datetime.strptime(beginHour, "%H:%M")
 			end = datetime.datetime.strptime(endHour, "%H:%M")
 			duree = (end - begin).seconds / 3600
-			sqlQuery += "INSERT INTO edt (heure_debut,jour,salle,duree,type,uv) VALUES (\"" + beginHour + "\", \"" + insc["day"] + "\", \"" + insc["room"] + "\", " + str(int(float(duree))) + ", \"" + insc["type"] + "\", \"" + insc["uv"] + "\") ON DUPLICATE KEY UPDATE heure_debut=heure_debut;\n"
-			sqlQuery += "INSERT INTO inscription VALUES (" + email + ", \"" + beginHour + "\", \"" + insc["day"] + "\", \"" + insc["room"] + "\");\n"
+			sqlQuery += "INSERT INTO Edt (heure_debut,jour,salle,duree,type,uv) VALUES (\"" + beginHour + "\", \"" + insc["day"] + "\", \"" + insc["room"] + "\", " + str(int(float(duree))) + ", \"" + insc["type"] + "\", \"" + insc["uv"] + "\") ON DUPLICATE KEY UPDATE heure_debut=heure_debut;\n"
+			sqlQuery += "INSERT INTO Inscription VALUES (" + email + ", \"" + beginHour + "\", \"" + insc["day"] + "\", \"" + insc["room"] + "\");\n"
 print(sqlQuery)
