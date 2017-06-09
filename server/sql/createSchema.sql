@@ -3,7 +3,7 @@ create schema SR03Projet;
 use SR03Projet;
 create table Branche (abreviation varchar(50) not null, nom varchar(50), primary key (abreviation));
 create table Edt (heure_debut varchar(50) not null, jour varchar(50) not null, salle varchar(50) not null, duree integer not null, type varchar(50), uv varchar(50), primary key (heure_debut, jour, salle));
-create table Etudiant (mail varchar(50) not null, nom varchar(50), prenom varchar(50), branche varchar(50), primary key (mail));
+create table Etudiant (mail varchar(50) not null, login varchar(50) not null, nom varchar(50), prenom varchar(50), branche varchar(50), primary key (mail));
 create table Inscription (mail varchar(50) not null, heure_debut varchar(50) not null, jour varchar(50) not null, salle varchar(50) not null);
 create table Jour (nom varchar(50) not null, primary key (nom));
 create table Salle (nom varchar(50) not null, primary key (nom));

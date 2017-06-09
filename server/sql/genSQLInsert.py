@@ -21,7 +21,7 @@ sqlQuery = ""
 
 for k, v in logins.items():
 	email = "\"" + v[0].lower() + "." + v[1].lower() + "@etu.utc.fr\""
-	sqlQuery += "INSERT INTO etudiant VALUES (" + email + ", \"" + v[1] + "\", \"" + v[0] + "\", \"" + random.choice(branches) + "\");\n"
+	sqlQuery += "INSERT INTO Etudiant VALUES (" + email + ", \"" + k + "\", \"" + v[1] + "\", \"" + v[0] + "\", \"" + random.choice(branches) + "\");\n"
 	with urllib.request.urlopen(baseEDT + k) as url:
 		data = json.loads(url.read().decode())
 		for insc in data:
