@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -8,6 +7,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="css/fullcalendar.min.css">
 		<link rel="stylesheet" type="text/css" href="css/index.css">
 	</head>
 	<body>
@@ -19,72 +19,126 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					</button>
-					<div class="navbar-brand cursor-default">Trombinoscope</div>
+					<div class="navbar-brand cursor-mouse" onclick="loadHome()">Trombinoscope</div>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
-						<li><a href="#">Liste des étudiants</a></li>
-						<li><a href="#">Infos d'un étudiant</a></li>
-						<li><a href="#">Recherche d'étudiants</a></li>
+						<li><a href="#" onclick="loadStudents()">Liste des étudiants</a></li>
+						<li><a href="#" onclick="openConsult()">Infos d'un étudiant</a></li>
+						<li><a href="#" onclick="openSearch()">Recherche d'étudiants</a></li>
 					</ul>
+					<button class="pull-right btn btn-danger navbar-btn" id="btn-con" onclick="openLogin('Connexion')">Connexion</button>
 					<div class="nav navbar-right">
-						<p class="navbar-text cursor-default">Bienvenue, X !</p>
+						<p class="navbar-text cursor-default" id="welcome-msg"></p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="vertical-center">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<a href="#" class="btn btn-info btn-block"><span class="glyphicon glyphicon-th-list"></span> Liste des étudiants</a>
+			<div class="container" id="content"></div>
+		</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+						<h3 class="modal-title" id="myModalLabel">Authentification</h4>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<a href="#" class="btn btn-info btn-block"><span class="glyphicon glyphicon-user"></span> Consulter un emploi du temps</a>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="input-group" id="adv-search">
-							<input type="text" id="search-input" class="form-control input-lg" placeholder="Rechercher des étudiants" />
-							<div class="input-group-btn">
-								<div class="btn-group" role="group">
-									<div class="dropdown dropdown-lg">
-										<button type="button" class="btn btn-lg btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-										<div class="dropdown-menu dropdown-menu-right" id="menu-search" role="menu">
-											<form class="form-horizontal" role="form">
-												<div class="form-group">
-													<label for="filter">Branche</label>
-													<select class="input-lg form-control">
-														<option value="0" selected>Toutes</option>
-														<option value="1">GI</option>
-														<option value="2">GM</option>
-														<option value="3">GP</option>
-														<option value="4">GB</option>
-													</select>
-												</div>
-												<div class="form-group">
-													<label for="contain">Nom</label>
-													<input class="input-lg form-control" type="text" />
-												</div>
-												<div class="form-group">
-													<label for="contain">Prénom</label>
-													<input class="input-lg form-control" type="text" />
-												</div>
-											</form>
-										</div>
-									</div>
-									<button type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+					<div class="modal-body">
+						<form id="loginForm" role="form" class="cmxform">
+							<div class="form-group">
+								<div class="input-group">
+									<input type="text" pattern=".{3,}" required class="form-control input-lg" id="uLogin" placeholder="Nom d'utilisateur">
+									<label for="uLogin" class="input-group-addon glyphicon glyphicon-user"></label>
 								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<input type="password" pattern=".{3,}" required class="form-control input-lg" id="uPassword" placeholder="Mot de passe">
+									<label for="uPassword" class="input-group-addon glyphicon glyphicon-lock"></label>
+								</div>
+							</div>
+							<div class="checkbox">
+								<label id="labelRemember">
+									<input type="checkbox" id="cbRemember">
+									Se rappeller de moi pour quelques jours
+								</label>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a href="#" onclick="performLogin()" class="btn btn-info btn-lg btn-block" id="btn-do-login">Connexion</a>
+						<div class="progress" id="progressLogin">
+							<div id="prog-login" class="progress-bar progress-bar-primary" role="progressbar" style="width: 0%;">
+								<span class="sr-only">progress</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-			<script type="text/javascript" src="js/bootstrap.min.js"></script>
-			<script type="text/javascript" src="js/index.js"></script>
-		</body>
-	</html>
+		</div>
+		<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+						<h3 class="modal-title" id="modalSearchLabel">Recherche d'étudiants</h4>
+					</div>
+					<div class="modal-body">
+						<form id="searchForm" class="form-horizontal" role="form">
+							<div class="form-group">
+								<label for="lastnameModal">Nom</label>
+								<input id="lastnameModal" class="input-lg form-control" type="text" />
+							</div>
+							<div class="form-group">
+								<label for="firstnameModal">Prénom</label>
+								<input id="firstnameModal" class="input-lg form-control" type="text" />
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a href="#" onclick="performModalSearch()" class="btn btn-info btn-lg btn-block" id="btn-do-search">Recherche</a>
+						<div class="progress" id="progressSearch">
+							<div id="prog-search" class="progress-bar progress-bar-primary" role="progressbar" style="width: 0%;">
+								<span class="sr-only">progress</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modalConsult" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+						<h3 class="modal-title" id="modalConsultLabel">Consultation d'emploi du temps</h4>
+					</div>
+					<div class="modal-body">
+						<form id="consultForm" class="form-horizontal" role="form">
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input id="lastnameModal" placeholder="Adresse email de l'étudiant" required class="input-lg form-control" type="email" />
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a href="#" onclick="performConsult()" class="btn btn-info btn-lg btn-block" id="btn-do-consult">Recherche</a>
+						<div class="progress" id="progressConsult">
+							<div id="prog-consult" class="progress-bar progress-bar-primary" role="progressbar" style="width: 0%;">
+								<span class="sr-only">progress</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/moment.js"></script>
+		<script type="text/javascript" src="js/fullcalendar.min.js"></script>
+		<script type="text/javascript" src="js/fr.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+	</body>
+</html>

@@ -3,32 +3,104 @@
 }
 
 body {
-	background-image: url('../img/agsquare.png')
+	background-image: url('../img/agsquare.png');
 }
 
 .vertical-center {
-  min-height: 90vmin; /* These two lines are counted as one :-)       */
-
+  min-height: 90vmin; 
   display: flex;
   align-items: center;
+  padding-bottom: 10%;
+}
+
+.nav p {
+    padding-right: 10px;
+}
+
+.nav a, p {
+    font-size: 1.4em !important;
+    margin-top: 3px;
+}
+
+.nav li{
+    padding-right: 5px;
+}
+
+#btn-con {
+    padding:0 15px;
+    line-height:40px; 
+}
+
+#loginForm input:invalid {
+  border: 1px solid red;
+}
+
+#loginForm input:valid {
+  border: 1px solid green;
+}
+
+#consultForm input:invalid {
+  border: 1px solid red;
+}
+
+#consultForm input:valid {
+  border: 1px solid green;
+}
+
+
+h4.card-field {
+    margin-bottom: 20px !important;
+}
+
+input[type=checkbox], input[type=radio] {
+    vertical-align: middle;
+    position: relative;
+    bottom: 0.5vmin;
+}
+
+.navbar-brand {
+    font-size: 1.8em !important;   
+    margin-top: 3px;
 }
 
 #search-input {
-	font-size: 3vmin;
+	font-size: 2.8vmin;
+}
+
+#labelRemember {
+    font-size: 1.3em;
 }
 
 .cursor-default {
 	cursor: default;
 }
 
-.btn-block {
+.cursor-mouse {
+    cursor: pointer;
+}
+
+.glyphicon { 
+    margin-right: 10px; 
+}
+
+small {
+    display: block;
+    line-height: 1.428571429;
+    color: #999;
+}
+
+.btn-block.btn-choice {
 	font-size: 4vmin;
 	padding: 5% 0;
 	margin-bottom: 50px;
 }
 
-.glyphicon-th-list, .glyphicon-user {
-    font-size: 4vmin;
+.glyphicon {
+    top: 0px;
+}
+
+.glyphicon-th-list, span.glyphicon-user {
+    font-size: 3vmin;
 }
 
 .dropdown.dropdown-lg .dropdown-menu {
@@ -66,7 +138,7 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-    .row, #adv-search {
+    #home-row, #adv-search {
         width: 700px;
         margin: 0 auto;
     }
@@ -76,4 +148,52 @@ body {
     .dropdown.dropdown-lg .dropdown-menu {
         min-width: 700px;
     }
+    .modal-dialog {
+        width: 700px !important;
+        margin: 30px auto;
+    }
+}
+
+.modal {
+    text-align: center;
+    padding: 0!important;
+}
+
+.modal::before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    width: 300px;
+}
+
+.modal-footer {
+    height: 70px;
+    margin: 0;
+}
+
+.modal-body {
+    padding-bottom: 5px;
+}
+
+.modal-footer .btn {
+    font-weight: bold;
+}
+
+.modal-footer .progress {
+    display: none;
+    height: 32px;
+    margin: 0;
+}
+
+.input-group-addon {
+    color: #fff;
+    background: #3276B1;
 }

@@ -1,0 +1,37 @@
+<div class="row" id="home-row">
+	<div class="col-md-12">
+		<a href="#" onclick="loadStudents()" class="btn btn-info btn-block btn-choice"><span class="glyphicon glyphicon-th-list"></span> Liste des étudiants</a>
+	</div>
+</div>
+<div class="row" id="home-row">
+	<div class="col-md-12">
+		<a href="#" onclick="openConsult()" class="btn btn-info btn-block btn-choice"><span class="glyphicon glyphicon-user"></span> Consulter un emploi du temps</a>
+	</div>
+</div>
+<div class="row" id="home-row">
+	<div class="col-md-12">
+		<div class="input-group" id="adv-search">
+			<input type="text" id="all-search" class="form-control input-lg" placeholder="Rechercher des étudiants" />
+			<div class="input-group-btn">
+				<div class="btn-group" role="group">
+					<div class="dropdown dropdown-lg">
+						<button type="button" class="btn btn-lg btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+						<div class="dropdown-menu dropdown-menu-right" id="menu-search" role="menu">
+							<form class="form-horizontal" role="form">
+								<div class="form-group">
+									<label for="lastname">Nom</label>
+									<input id="lastname" class="input-lg form-control" type="text" />
+								</div>
+								<div class="form-group">
+									<label for="firstname">Prénom</label>
+									<input id="firstname" class="input-lg form-control" type="text" />
+								</div>
+							</form>
+						</div>
+					</div>
+					<button onclick="performSearch()" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
