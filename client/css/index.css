@@ -17,6 +17,11 @@ body {
     padding-right: 10px;
 }
 
+#errorSearch {
+    color: red;
+    font-size: 2vmin;
+}
+
 .nav a, p {
     font-size: 1.4em !important;
     margin-top: 3px;

@@ -13,12 +13,33 @@ var loginEndpoint = "login?"
 /* Endpoint pour les étudiants */
 var studentEndpoint = "student?";
 
+/* Endpoint pour les emplois du temps */
+var edtEndpoint = "edt/";
+
 /* Nom des cookies */
 var cookieLogin = 'login';
 var cookieToken = 'token';
 
 /* Modèle pour les profils d'étudiant */
 var cardStudent;
+
+var date = new Date();
+	//Récupération du Lundi
+	var day = date.getDay() || 7; 
+	if(day !== 1)                
+	    date.setHours(-24 * (day - 1))
+	var d = date.getDate();
+	var m = date.getMonth();
+	var y = date.getFullYear();
+
+var dayAssociation = {
+	"LUNDI" : 0,
+	"MARDI": 1,
+	"MERCREDI" : 2,
+	"JEUDI" : 3,
+	"VENDREDI" : 4,
+	"SAMEDI" : 5
+}
 
 /* Gère l'affichage du message de bienvenue, du bouton de connexion 
 dans la barre de navigation et de la modale de connexion. */
@@ -64,19 +85,25 @@ function searchStudents(name, surname) {
 		loadPage(
 			apiURL + studentEndpoint + apiParams,
 			function(content) {
-			animateProgressBar(button, false);
-				var title = $('#modalSearchLabel');
-				button.text("Fermer")
-					.removeClass("btn-primary")
-					.addClass("btn-success")
-					.blur()
-					.delay(1600)
-					.fadeIn(function() {
-						title.text("Recherche terminée!");
-						button.attr("data-dismiss", "modal");
-					});
 				var json = JSON.parse(content);
-				setStudentContent(json);
+				if(json.length === 0) {
+					$('#modalSearchLabel').text('Aucun étudiant trouvé!');
+				}
+				else {
+					$('#modalSearchLabel').text('Recherche');
+					animateProgressBar(button, false);
+					var title = $('#modalSearchLabel');
+					button.text("Fermer")
+						.removeClass("btn-primary")
+						.addClass("btn-success")
+						.blur()
+						.delay(900)
+						.fadeIn(function() {
+							title.text("Recherche terminée!");
+							button.attr("data-dismiss", "modal");
+						});
+					setStudentContent(json);
+				}
 			},
 			function() {
 				setCookie(cookieToken, "");
@@ -100,7 +127,16 @@ function searchStudentsFromStaticForm(all, name, surname) {
 			apiURL + studentEndpoint + apiParams,
 			function(content) {
 				var json = JSON.parse(content);
-				setStudentContent(json);
+				if(json.length === 0) {
+					$('#errorSearch').animate({opacity:0}, 1, function(){
+				        $(this).text("Aucun étudiant trouvé!")
+				            .animate({opacity:1});  
+				    });
+				}
+				else {
+					$('#errorSearch').text(" ");
+					setStudentContent(json);
+				}
 			},
 			function() {
 				setCookie(cookieToken, "");
@@ -110,12 +146,8 @@ function searchStudentsFromStaticForm(all, name, surname) {
 		);
 }
 
-function studentCalendar() {
-    var date = new Date();
-	var d = date.getDate();
-	var m = date.getMonth();
-	var y = date.getFullYear();
-
+function studentCalendar(eventsList) {
+	$('#content').fullCalendar('destroy');
 	$('#content').empty();
 
 	/* initialize the calendar
@@ -142,52 +174,10 @@ function studentCalendar() {
 		maxTime : "20:00:00",
 		contentHeight : "auto",
 		
-		events: [
-			{
-				title: 'All Day Event',
-				start: new Date(y, m, 1)
-			},
-			{
-				id: 999,
-				title: 'Repeating Event',
-				start: new Date(y, m, d-3, 16, 0),
-				allDay: false,
-				className: 'info'
-			},
-			{
-				id: 999,
-				title: 'Repeating Event',
-				start: new Date(y, m, d+4, 16, 0),
-				allDay: false,
-				className: 'info'
-			},
-			{
-				title: 'Meeting',
-				start: new Date(y, m, d, 10, 30),
-				allDay: false,
-				className: 'important'
-			},
-			{
-				title: 'Lunch',
-				start: new Date(y, m, d, 12, 0),
-				end: new Date(y, m, d, 14, 0),
-				allDay: false,
-				className: 'important'
-			},
-			{
-				title: 'Birthday Party',
-				start: new Date(y, m, d+1, 19, 0),
-				end: new Date(y, m, d+1, 22, 30),
-				allDay: false,
-			},
-			{
-				title: 'Click for Google',
-				start: new Date(y, m, 28),
-				end: new Date(y, m, 29),
-				url: 'http://google.com/',
-				className: 'success'
-			}
-		],			
+		events: eventsList,
+		eventRender: function(event, element) { 
+            element.find('.fc-title').append("<br/>" + event.description); 
+        } 
 	});
 }
 
@@ -206,6 +196,50 @@ function performSearch() {
 	searchStudentsFromStaticForm(all, name, surname);
 }
 
+function performConsult() {
+	var email = $('#emailModal').val();
+	printEdt(email);
+}
+
+function printEdt(email) {
+	loadPage(
+		apiURL + edtEndpoint + encodeURIComponent(email),
+		function(content) {
+			var json = JSON.parse(content);
+			var events = [];
+			if(json.length === 0) {
+				$('#modalConsultLabel').text('Aucun étudiant trouvé !');
+			}
+			else {
+				$('#modalConsult').modal('hide');
+				$('#modalConsultLabel').text("Consultation d'emploi du temps");
+				
+				json.forEach(function(e) {
+					var event = { };
+					event['title'] = e[2].nom;
+					var startHour = e[5].split(":");
+					startHour[0] = Number(startHour[0]);
+					startHour[1] = Number(startHour[1]);
+					var effectiveDay = dayAssociation[e[0].nom];
+					event['start'] = new Date(y, m, d + effectiveDay, startHour[0], startHour[1]);
+					event['end'] = new Date(y, m, d + effectiveDay, startHour[0] + e[3], startHour[1]);
+					event['allDay'] = false;
+					if(e[4] === "TD") event['color'] = "#BD9AB9";
+					event['description'] = e[4] + " " + e[1].nom;
+					events.push(event);
+				});
+				setContent('');
+				studentCalendar(events);
+			}
+		},
+		function() {
+			setCookie(cookieToken, "");
+			checkLogin('Jeton non-valide. Veuillez vous reconnecter.');
+		},
+		true
+	);
+}
+
 function setStudentContent(json) {
 	var result = '';
 	for(i = 0; i < json.length; ++i) {
@@ -219,7 +253,7 @@ function setStudentContent(json) {
 		$copy.find('#card-email').text(current.mail);
 		$copy.find('#card-img').attr('src', imgURL + current.login);
 		$copy.find('#card-branch').text(current.branche.nom);
-
+		$copy.find('#card-edt').attr('name', current.mail);
 		//Deux par ligne au maximum
 		var html = '';
 		if(i % 2 === 0) {
@@ -231,6 +265,11 @@ function setStudentContent(json) {
 		result += html;
 	}
 	setContent(result);
+	$('.card-edt').each(function() {
+		$(this).click(function(event) {
+			printEdt(event.target.name);
+		})
+	});
 }
 
 function loadHome() {
@@ -282,6 +321,9 @@ function loadPage(pageName, whatToDo, unauthorized, extern = false) {
 			else if(xmlHttp.status == 403 || xmlHttp.status == 401) {
 				unauthorized();
 			}
+			else {
+				alert('Ressource indisponible ou inexistante');
+			}
 		}
 	};
 
@@ -294,13 +336,15 @@ function loadPage(pageName, whatToDo, unauthorized, extern = false) {
 @param content contenu 
 @param add true s'il faut juste rajouter */
 function setContent(content, add = false) {
-	var contentDiv = document.getElementById('content');
+	var contentDiv = $('#content');
+	contentDiv.css('display', 'none');
 	if(add) {
-		contentDiv.innerHTML = contentDiv.innerHTML + content;
+		contentDiv.append(content);
 	}
 	else {
-		contentDiv.innerHTML = content;
+		contentDiv.html(content);
 	}
+	contentDiv.fadeIn(500);
 }
 
 /* Vérifie que la connexion au serveur est toujours active.
@@ -385,7 +429,7 @@ function performLogin() {
 					.removeClass("btn-primary")
 					.addClass("btn-success")
 					.blur()
-					.delay(1600)
+					.delay(900)
 					.fadeIn(function() {
 						title.text("Connexion réussie ! Bienvenue, " + login + "!");
 						button.attr("data-dismiss", "modal");
@@ -461,8 +505,8 @@ function animateProgressBar(button, login) {
 	button.hide();
 	progress.show();
 	progressBar.animate({width : "100%"}, 100);
-	progress.delay(1000)
-			.fadeOut(600);
+	progress.delay(500)
+			.fadeOut(300);
 }
 
 $(document).ready(function() {

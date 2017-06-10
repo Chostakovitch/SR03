@@ -8,7 +8,7 @@ import time
 import datetime
 
 logins = {
-	"qduchemi" : ["Quentin", "Duchemin"], "dupoalex" : ["Alexis", "Dupont"], "digeonau" : ["Aurélie", "Digeon"], "algilbert" : ["Alexandre-Guillaume", "Gilbert"], "aronadri" : ["Adrien", "Aron"], 
+	"qduchemi" : ["Quentin", "Duchemin"], "dupoalex" : ["Alexis", "Dupont"], "digeonau" : ["Aurélie", "Digeon"], "algilber" : ["Alexandre-Guillaume", "Gilbert"], "aronadri" : ["Adrien", "Aron"], 
 	"mballoua" : ["Melody", "Ballouard"], "odicosca" : ["Oscar", "Odic"], "brunaure" : ["Aurélie", "Brun"], "truongth" : ["Thanh-Thao", "Truong"], "arondele" : ["Antoine", "Rondelet"],
 	"briviere" : ["Benjamin", "Rivière"], "passotcl" : ["Clément", "Passot"], "colinajo" : ["Jo", "Colina"], "costejer" : ["Jérémy", "Coste"], "dillymax" : ["Maxime", "Dilly"],
 	"qdruault" : ["Quentin", "Drualt-Aubin"], "igerbaux" : ["Irvin", "Gerbeaux"], "khalefra" : ["Rachid", "Khalef"], "konamdav" : ["David", "Konam"], "trouvero" : ["Robin", "Trouve"]
